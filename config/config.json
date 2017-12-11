@@ -1,0 +1,18 @@
+{
+    "product": {
+        "host": "rm-6we4s4curvn4vz583o.mysql.japan.rds.aliyuncs.com",
+        "username": "groupy",
+        "password": "Groupy@2017",
+        "database": "misc"
+    },
+    "development": {
+        "host": "rm-uf608ociz94s1hck2o.mysql.rds.aliyuncs.com",
+        "username": "groupy",
+        "password": "GroupyTest2017",
+        "database": "misc"
+    },
+    "freezeTableName" : true,
+    "timestamps" : false,
+    "underscored": true,
+    "underscoredAll": true
+}
