@@ -27,11 +27,12 @@
 			align="center"
 			header-align="center"
 	    :data="songList"
-	    height="calc(100vh - 360px)"
+	    height="calc(100vh - 270px)"
 	    :row-class-name="tableRowClassName">
 	    <el-table-column
 	      prop="id"
-	      label="ID">
+	      label="ID"
+	      width="60px">
 	    </el-table-column>
 	    <el-table-column
 	      prop="title"
@@ -51,6 +52,7 @@
 	    </el-table-column>
 	    <el-table-column
 	      prop="img"
+	      width="120px"
 	      label="封面图">
 	      <template slot-scope="scope">
 	    		<img :src="scope.row.img" alt="" @click="showBigImg(scope.row.img)" class="song_img">
@@ -60,7 +62,7 @@
 	      prop="original_id"
 	      label="歌单链接">
 	      <template slot-scope="scope">
-	    		<a :href="'https://www.youtube.com/playlist?list='+scope.row.original_id" target="_blank">https://www.youtube.com/playlist?list={{scope.row.original_id}}</a>
+	    		<a :href="'https://www.youtube.com/playlist?list='+scope.row.original_id" target="_blank" class="links">https://www.youtube.com/playlist?list={{scope.row.original_id}}</a>
 	    	</template>
 	    </el-table-column>
 	    <el-table-column

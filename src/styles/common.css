@@ -106,7 +106,7 @@ a {
 body {
   color: #333;
   background-color: #E9EEF3;
-  overflow: hidden;
+  overflow: auto;
 }
 .login {
   position: absolute;
@@ -174,10 +174,10 @@ body {
   border-bottom: none;
   text-align: center;
   margin-bottom: 10px;
-  height: calc(100vh - 360px);
+  height: calc(100vh - 270px);
 }
 .el-table th {
-  text-align: center;
+  text-align: center !important;
 }
 /* .el-table__body-wrapper {
   max-height: calc(100vh - 360px);
@@ -188,4 +188,9 @@ body {
 }
 .el-form-item__label {
   width: 100px !important;
+}
+.links {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
