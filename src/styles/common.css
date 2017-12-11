@@ -126,6 +126,7 @@ body {
   width: 60px;
   vertical-align: middle;
   margin-right: 20px;
+  padding-top: 5px;
 }
 .el-header span {
   display: inline-block;
