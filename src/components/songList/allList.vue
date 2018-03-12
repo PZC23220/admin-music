@@ -1,27 +1,41 @@
 <template>
 	<div class="">
-		<p class="pages_tab">当前页：用户管理<i class="el-icon-arrow-right"></i>爱豆审核</p>
+		<p class="pages_tab">当前页：歌单管理<i class="el-icon-arrow-right"></i>全部歌单</p>
 		<!-- 筛选区域 -->
     <el-form label-width="80px" :inline="true">
-      <el-form-item label="歌单标签">
-			  <el-select v-model="Stag" clearable placeholder="歌单标签筛选">
-			    <el-option
-			      key="Hot"
-			      label="热门歌单"
-			      value="Hot">
-			    </el-option>
-			    <el-option
-			      key="HotSinger"
-			      label="人气歌手"
-			      value="HotSinger">
-			    </el-option>
-			  </el-select>
-			</el-form-item>
-			<el-form-item label="歌单名称">
-				<el-input placeholder="歌单名称" v-model="Stitle"></el-input>
-			</el-form-item>
-			<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
-			<el-button type="primary" style="float:right" icon="el-icon-edit" @click="editSong()">添加歌单</el-button>
+        <el-form-item label="歌单标签">
+		  <el-select v-model="Stag" clearable placeholder="歌单标签筛选">
+		    <el-option
+		      key="Hot"
+		      label="热门歌单"
+		      value="Hot">
+		    </el-option>
+		    <el-option
+		      key="HotSinger"
+		      label="人气歌手"
+		      value="HotSinger">
+		    </el-option>
+		  </el-select>
+		</el-form-item>
+        <el-form-item label="歌单状态">
+          <el-select v-model="Sstatus" clearable placeholder="歌单状态筛选">
+            <el-option
+              key="1"
+              label="已上线"
+              value="1">
+            </el-option>
+            <el-option
+              key="0"
+              label="已下线"
+              value="0">
+            </el-option>
+          </el-select>
+        </el-form-item>
+		<el-form-item label="歌单名称">
+			<el-input placeholder="歌单名称" v-model="Stitle"></el-input>
+		</el-form-item>
+		<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
+		<el-button type="primary" style="float:right" icon="el-icon-edit" @click="editSong()">添加歌单</el-button>
     </el-form>
 		<el-table
 			align="center"
@@ -42,6 +56,10 @@
 	      prop="description"
 	      label="描述">
 	    </el-table-column>
+        <el-table-column
+          prop="nums"
+          label="歌曲数">
+        </el-table-column>
 	    <el-table-column
 	      prop="TAG"
 	      label="标签">
@@ -175,6 +193,7 @@
 				total: 0,
 				idolname: '',
 				Stitle: '',
+                Sstatus: '',
 				title: '',
 				Stag: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
@@ -278,16 +297,28 @@
             pageNum: 10,
       			page: self.currentPage,
       			TAG: self.Stag,
-      			title: self.Stitle
+      			title: self.Stitle,
+                status: self.Sstatus
       		}
       	}).then(function(res){
       		console.log(res)
-        	self.songList = res.rows;
-        	self.total = res.count;
+        	self.songList = res;
 	        loading.close();
       	}).catch(err => {
       		self.$message.error('服务器或者网络错误'+ res);
       	})
+        http.get('/api/playlist/count',{
+            params: {
+                TAG: self.Stag,
+                title: self.Stitle,
+                status: self.Sstatus
+            }
+        }).then(function(res){
+            console.log(res)
+            self.total = res[0].count;
+        }).catch(err => {
+            self.$message.error('服务器或者网络错误'+ res);
+        })
       },
       editSong(obj) {
       	this.visible2 = true;
@@ -356,7 +387,7 @@
 		created: function(){
 			var self = this;
 			self.hosts = `http://${location.hostname}:4000/api/fileupload`;
-    	self.handleCurrentChange();
+    	   self.handleCurrentChange();
 		}
 	}
 </script>
