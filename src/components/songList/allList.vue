@@ -363,7 +363,7 @@
 	        http.post('/api/playlist/edit',data_).then(function(res){
 		      	self.loading2 = false;
 	        	if(res.success) {
-	        		self.handleCurrentChange();
+	        		self.handleCurrentChange(self.currentPage);
 			        self.visible2 = false
 		      		self.$message({
 			          message: '😄 你很快就可以看到你编辑的这个歌单了！！',
