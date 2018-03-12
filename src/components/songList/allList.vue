@@ -34,6 +34,15 @@
 		<el-form-item label="歌单名称">
 			<el-input placeholder="歌单名称" v-model="Stitle"></el-input>
 		</el-form-item>
+        <el-form-item label="歌曲数目">
+          <el-select v-model="Snums" clearable placeholder="歌单状态筛选">
+            <el-option
+              key="0"
+              label="0"
+              value="0">
+            </el-option>
+          </el-select>
+        </el-form-item>
 		<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
 		<el-button type="primary" style="float:right" icon="el-icon-edit" @click="editSong()">添加歌单</el-button>
     </el-form>
@@ -192,6 +201,7 @@
 				id:'',
 				total: 0,
 				idolname: '',
+                Snums: '',
 				Stitle: '',
                 Sstatus: '',
 				title: '',
@@ -298,7 +308,8 @@
       			page: self.currentPage,
       			TAG: self.Stag,
       			title: self.Stitle,
-                status: self.Sstatus
+                status: self.Sstatus,
+                nums: self.Snums
       		}
       	}).then(function(res){
       		console.log(res)
@@ -311,7 +322,8 @@
             params: {
                 TAG: self.Stag,
                 title: self.Stitle,
-                status: self.Sstatus
+                status: self.Sstatus,
+                nums: self.Snums
             }
         }).then(function(res){
             console.log(res)

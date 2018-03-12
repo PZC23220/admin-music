@@ -175,7 +175,7 @@ body {
   border-bottom: none;
   text-align: center;
   margin-bottom: 10px;
-  height: calc(100vh - 270px);
+  height: calc(100vh - 330px);
 }
 .el-table th {
   text-align: center !important;

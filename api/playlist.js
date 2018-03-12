@@ -60,23 +60,32 @@ var select = require('./connection.js');
 // });
 //获取歌单总数
 router.get('/api/playlist/count', function(request, response) {
-    var title = request.query.title ? "%"+ request.query.title +"%" : "%%";
+    var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
     var TAG = request.query.TAG || '';
     var status = request.query.status || '';
-    var sql = `SELECT count(*) AS count FROM playlist
-    WHERE title LIKE '%${title}%'
+    var nums = request.query.nums || '';
+    var sql = `SELECT count(*) AS count, IFNULL(p1.nums, 0) AS nums
+    FROM playlist AS p LEFT JOIN
+    (SELECT
+         t.playlist_id,
+         COUNT(t.id) AS nums
+       FROM mfm_track AS t
+       GROUP BY t.playlist_id) AS p1
+        ON p.id = p1.playlist_id
+    WHERE title LIKE ${title}
     ${TAG? ' and TAG = ' + TAG : ''}
+    ${nums? 'and nums is NULL' : ''}
     ${status? ' and status = ' + status : ''}`;
-
     select(sql, request, response);
 });
 //获取歌单
 router.get('/api/playlist/list', function(request, response) {
     var page = request.query.page || 1;
     var pageNum = request.query.pageNum || 10;
-    var title = request.query.title ? "%"+ request.query.title +"%" : "%%";
+    var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
     var TAG = request.query.TAG || '';
     var status = request.query.status || '';
+    var nums = request.query.nums || '';
     var sql = `SELECT
       p.*,
       IFNULL(p1.nums, 0) AS nums
@@ -87,11 +96,11 @@ router.get('/api/playlist/list', function(request, response) {
        FROM mfm_track AS t
        GROUP BY t.playlist_id) AS p1
         ON p.id = p1.playlist_id
-    WHERE p.title LIKE '%${title}%'
+    WHERE p.title LIKE ${title}
     ${TAG? ' and p.TAG = ' + TAG : ''}
     ${status? ' and p.status = ' + status : ''}
+    ${nums? 'and nums is NULL' : ''}
     ORDER BY p.id DESC LIMIT ${((pageNum * page) - pageNum)} , ${pageNum}`;
-
     select(sql, request, response);
 });
 // 上/下线歌单
