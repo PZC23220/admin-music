@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
 			defaultValue: ''
 		},
 		keyword: {
-			type: DataTypes.STRING(64),
+			type: DataTypes.STRING(128),
 			allowNull: true,
 			unique: true
 		},

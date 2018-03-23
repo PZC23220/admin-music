@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			autoIncrement: true
 		},
+		app_name: {
+			type: DataTypes.STRING(16),
+			allowNull: true
+		},
 		title: {
 			type: DataTypes.STRING(128),
 			allowNull: true
@@ -18,7 +22,8 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		type: {
 			type: DataTypes.STRING(16),
-			allowNull: true
+			allowNull: false,
+			defaultValue: 'YouTube'
 		},
 		img: {
 			type: DataTypes.STRING(512),
@@ -47,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			defaultValue: '0'
 		},
-		TAG: {
+		tag: {
 			type: DataTypes.STRING(16),
 			allowNull: false,
 			defaultValue: ''

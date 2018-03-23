@@ -12,13 +12,17 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(11).UNSIGNED,
 			allowNull: true
 		},
-		original_id: {
+		channel_title: {
 			type: DataTypes.STRING(128),
+			allowNull: true
+		},
+		original_id: {
+			type: DataTypes.STRING(16),
 			allowNull: true,
 			unique: true
 		},
 		playlist_id: {
-			type: DataTypes.STRING(128),
+			type: DataTypes.INTEGER(128),
 			allowNull: true
 		},
 		artwork_url: {
@@ -41,25 +45,15 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(11),
 			allowNull: true
 		},
-		tag: {
-			type: DataTypes.STRING(1024),
-			allowNull: true
+		played: {
+			type: DataTypes.INTEGER(11).UNSIGNED,
+			allowNull: false,
+			defaultValue: '0'
 		},
-		user_id: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true
-		},
-		user_name: {
-			type: DataTypes.STRING(128),
-			allowNull: true
-		},
-		stream_url: {
-			type: DataTypes.STRING(1024),
-			allowNull: true
-		},
-		preview_url: {
-			type: DataTypes.STRING(1024),
-			allowNull: true
+		play_error: {
+			type: DataTypes.INTEGER(11).UNSIGNED,
+			allowNull: false,
+			defaultValue: '0'
 		},
 		create_time: {
 			type: DataTypes.TIME,

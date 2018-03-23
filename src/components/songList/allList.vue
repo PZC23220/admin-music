@@ -125,7 +125,6 @@
           width="500px"
           :title="title"
           :visible.sync="addVisible">
-          <img :src="dialogImg" style="width: 100%;">
           <span slot="footer" class="dialog-footer">
             <el-button type="danger" @click="pushStatus()" :loading="loading2">确 定</el-button>
           </span>

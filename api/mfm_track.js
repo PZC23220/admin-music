@@ -37,18 +37,14 @@ router.get('/api/mfm_track/list', function(req, res, next){
 router.post('/api/mfm_track/edit', function(req, res, next){
     var data = req.body;
     var id = data.id;
-    data.create_time = sequelize.fn(`FROM_UNIXTIME`,data.start_time);
-    data.end_time = sequelize.fn(`FROM_UNIXTIME`,data.end_time);
+    console.log(data)
     if(id !== undefined && id !== ''){
         // 编辑
         models.mfm_track.update(data, {where: {id: id}, validate: false}).then(function(result){
             res.send({'success': true})
         });
     }else{
-        // 新增
-        models.mfm_track.create(data).then(function(result){
-            res.send({'success': true})
-        });
+        res.send({'success': false,'error': '缺少Id'})
     }
 });
 

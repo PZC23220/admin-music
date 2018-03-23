@@ -37,6 +37,14 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(256),
 			allowNull: true
 		},
+		description: {
+			type: DataTypes.TEXT,
+			allowNull: true
+		},
+		artist: {
+			type: DataTypes.STRING(256),
+			allowNull: true
+		},
 		playlist_id: {
 			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: true
