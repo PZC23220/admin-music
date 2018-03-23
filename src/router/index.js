@@ -6,6 +6,7 @@ import Router from 'vue-router'
 // import hotList from '@/components/songList/hotList'
 // import opularityList from '@/components/songList/opularityList'
 import allList from '@/components/songList/allList'
+import mfm_track from '@/components/songList/mfm_track'
 
 
 import login from '@/components/login'
@@ -21,5 +22,6 @@ export default new Router({
     // {path: '/hotList', component: hotList},
     // {path: '/opularityList', component: opularityList},
     {path: '/allList', component: allList},
+    {path: '/mfm_track', component: mfm_track},
   ]
 })

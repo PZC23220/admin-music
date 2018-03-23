@@ -3,61 +3,6 @@ var router = express.Router();
 var models = require('../models');
 var select = require('./connection.js');
 
-// 获取歌单
-// router.get('/api/playlist/list', function(req, res, next){
-//     var page = req.query.page || 1;
-//     var pageNum = req.query.pageNum || 10;
-//     var title = req.query.title ? "%"+ req.query.title +"%" : "%%";
-//     var TAG = req.query.TAG || '';
-//     if(TAG) {
-//         var op = {
-//             limit: Number(pageNum),
-//             offset: (pageNum * page) - pageNum,
-//             row: true,
-//             order: [['id', 'DESC']],
-//             where: {
-//                 title: {$like: title},
-//                 TAG: TAG
-//             }
-//         }
-//     }else{
-//         var op = {
-//             limit: Number(pageNum),
-//             offset: (pageNum * page) - pageNum,
-//             row: true,
-//             order: [['id', 'DESC']],
-//             where: {
-//                 title: {$like: title}
-//             }
-//         }
-//     }
-//     // models.playlist.findAndCountAll(op).then(function(result){
-//     //     res.send(result);
-//     // }).catch(function(err){
-//     //     res.send(err);
-//     //     return false;
-//     // });
-//     sequelize.query(`SELECT
-//       p.*,
-//       IFNULL(p1.nums, 0) AS nums
-//     FROM playlist AS p LEFT JOIN
-//       (SELECT
-//          t.playlist_id,
-//          COUNT(t.id) AS nums
-//        FROM mfm_track AS t
-//        GROUP BY t.playlist_id) AS p1
-//         ON p.id = p1.playlist_id
-//     WHERE p.title LIKE '%${title}%'
-//     ${TAG? ' and p.TAG = ' + TAG : ''}
-//     ORDER BY p.id DESC LIMIT ${((pageNum * page) - pageNum)} , ${pageNum}`, { type: sequelize.QueryTypes.SELECT }).then(function(result){
-//         console.log(result)
-//         res.send(result);
-//     }).catch(function(err){
-//         console.log(err)
-//         res.send(err);
-//         return false;
-//     });
-// });
 //获取歌单总数
 router.get('/api/playlist/count', function(request, response) {
     var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";

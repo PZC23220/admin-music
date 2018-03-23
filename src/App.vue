@@ -13,6 +13,7 @@
               <el-menu-item index="/hotList">热门歌单</el-menu-item>
               <el-menu-item index="/opularityList">人气歌手</el-menu-item> -->
               <el-menu-item index="/allList">全部歌单</el-menu-item>
+              <el-menu-item index="/mfm_track">全部歌曲</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>
