@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //用户相关
-// import addList from '@/components/songList/addList'
-// import hotList from '@/components/songList/hotList'
-// import opularityList from '@/components/songList/opularityList'
+import recommend from '@/components/songList/recommend'
+import latest from '@/components/songList/latest'
+import ranking from '@/components/songList/ranking'
 import allList from '@/components/songList/allList'
 import mfm_track from '@/components/songList/mfm_track'
 
@@ -18,9 +18,9 @@ export default new Router({
   routes: [
     {path: '/', redirect: '/login'},
     {path: '/login', component: login},
-    // {path: '/addList', component: addList},
-    // {path: '/hotList', component: hotList},
-    // {path: '/opularityList', component: opularityList},
+    {path: '/recommend', component: recommend},
+    {path: '/latest', component: latest},
+    {path: '/ranking', component: ranking},
     {path: '/allList', component: allList},
     {path: '/mfm_track', component: mfm_track},
   ]

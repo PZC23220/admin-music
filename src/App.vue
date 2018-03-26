@@ -9,10 +9,10 @@
           <el-menu :default-active="activeIndex" class="el-menu-vertical-demo" :router="true" :unique-opened="true">
             <el-submenu index="songList">
               <template slot="title"><i class="el-icon-menu"></i>歌单管理</template>
-              <!-- <el-menu-item index="/addList">添加歌单</el-menu-item>
-              <el-menu-item index="/hotList">热门歌单</el-menu-item>
-              <el-menu-item index="/opularityList">人气歌手</el-menu-item> -->
               <el-menu-item index="/allList">全部歌单</el-menu-item>
+              <el-menu-item index="/ranking">排行榜</el-menu-item>
+              <el-menu-item index="/recommend">每日推荐</el-menu-item>
+              <el-menu-item index="/latest">最新歌曲</el-menu-item>
               <el-menu-item index="/mfm_track">全部歌曲</el-menu-item>
             </el-submenu>
           </el-menu>

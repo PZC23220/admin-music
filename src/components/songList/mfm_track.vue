@@ -56,7 +56,7 @@
 	      prop="original_id"
 	      label="歌曲链接">
 	      <template slot-scope="scope">
-	    		<a :href="'https://www.youtube.com/playlist?list='+scope.row.original_id" target="_blank" class="links">https://www.youtube.com/watch?v={{scope.row.original_id}}</a>
+	    		<a :href="'https://www.youtube.com/watch?v='+scope.row.original_id" target="_blank" class="links">https://www.youtube.com/watch?v={{scope.row.original_id}}</a>
 	    	</template>
 	    </el-table-column>
 	    <el-table-column
@@ -144,9 +144,9 @@
 				idolType: 'idol',
 				song: {
 					id: '',
-                    title: '',
-                    channel_title: '',
-                },
+          title: '',
+          channel_title: '',
+        },
 			}
 		},
 		methods: {
@@ -163,119 +163,119 @@
                 this.dialogImg = val;
                 this.dialogVisible = true;
 		    },
-          editStatus(val,id) {
-            this.addVisible = true;
-            this.Status = val;
-            this.id = id;
-            if(val == 1) {
-            	this.title = `你确定要上线ID为${id}这个歌吗？？`
-            }else {
-            	this.title = `你确定要下线ID为${id}这个歌吗？？`
-            }
-          },
-          pushStatus() {
-            var self = this;
-            self.loading2 = true;
-            http.get('/api/mfm_track/edit_status',{
-            	params: {
-            		id: self.id,
-            		status: self.Status
-            	}
-            }).then(function(res){
-    	      	self.loading2 = false;
-            	if(res.success) {
-            		self.handleCurrentChange(self.currentPage);
-    		        self.addVisible = false
-    		      	if(self.Status == 0) {
-    		      		self.$message({
-    			          message: '😭，你再也不会在app里面看到这个歌了！',
-    			          type: 'success'
-    			        });
-    		      	}else {
-    			      	self.$message({
-    			          message: '😃，你很快就可以在app里面看到这个歌了！',
-    			          type: 'success'
-    			        });
-    		      	}
-            	}else {
-            		self.$message.error('服务器或者网络错误'+ res);
-            	}
-          	}).catch(err => {
-          		self.loading2 = false;
-          		self.$message.error('服务器或者网络错误'+ res);
-          	})
-          },
-          handleCurrentChange(val) {
-          	var self = this;
-          	if(!val) {
-          		self.currentPage = 1;
-          	}else{
-          		self.currentPage = val;
-          	}
-          	console.log(self.Stitle)
-          	http.get('/api/mfm_track/list',{
-          		params: {
-                pageNum: 10,
-          			page: self.currentPage,
-          			title: self.Stitle,
-                    status: self.Sstatus,
-          		}
-          	}).then(function(res){
-          		console.log(res)
-                self.songList = res.rows;
-            	self.total = res.count;
-          	}).catch(err => {
-          		self.$message.error('服务器或者网络错误'+ res);
-          	})
-          },
-          editSong(obj) {
-          	this.visible2 = true;
-          	if(obj) {
-          		this.song = {
-      			  id: obj.id,
-      			  title: obj.title,
-    	          channel_title: obj.channel_title,
-          		}
-          	}else {
-          		this.song = {
-          	      id: '',
-          		  title: '',
-    	          channel_title: '',
-          		}
-          	}
-          },
-          pushSong() {
-            var self = this;
-            self.loading2 = true;
-            if(self.song.title && self.song.channel_title) {
-    	        let data_ = {
-    	        	id: self.song.id,
-    	            channel_title: self.song.channel_title,
-                    title: self.song.title,
-    	        }
-    	        http.post('/api/mfm_track/edit',data_).then(function(res){
-    		      	self.loading2 = false;
-    	        	if(res.success) {
-    	        		self.handleCurrentChange(self.currentPage);
-    			        self.visible2 = false
-    		      		self.$message({
-    			          message: '😄 你很快就可以看到你编辑的这个歌了！！',
-    			          type: 'success'
-    			        });
-    	        	}else {
-    	        		self.$message.error('服务器或者网络错误'+ res);
-    	        	}
-    	      	}).catch(err => {
-    	      		self.loading2 = false;
-    	      		self.$message.error('服务器或者网络错误'+ res);
-    	      	})
-            }else {
-            	self.$message({
-    	          message: '😡 那么大的空看不到吗？？',
-    	          type: 'warning'
-    	        });
-            }
-          },
+      editStatus(val,id) {
+        this.addVisible = true;
+        this.Status = val;
+        this.id = id;
+        if(val == 1) {
+        	this.title = `你确定要上线ID为${id}这个歌吗？？`
+        }else {
+        	this.title = `你确定要下线ID为${id}这个歌吗？？`
+        }
+      },
+      pushStatus() {
+        var self = this;
+        self.loading2 = true;
+        http.get('/api/mfm_track/edit_status',{
+        	params: {
+        		id: self.id,
+        		status: self.Status
+        	}
+        }).then(function(res){
+	      	self.loading2 = false;
+        	if(res.success) {
+        		self.handleCurrentChange(self.currentPage);
+		        self.addVisible = false
+		      	if(self.Status == 0) {
+		      		self.$message({
+			          message: '😭，你再也不会在app里面看到这个歌了！',
+			          type: 'success'
+			        });
+		      	}else {
+			      	self.$message({
+			          message: '😃，你很快就可以在app里面看到这个歌了！',
+			          type: 'success'
+			        });
+		      	}
+        	}else {
+        		self.$message.error('服务器或者网络错误'+ res);
+        	}
+      	}).catch(err => {
+      		self.loading2 = false;
+      		self.$message.error('服务器或者网络错误'+ res);
+      	})
+      },
+      editSong(obj) {
+      	this.visible2 = true;
+      	if(obj) {
+      		this.song = {
+  			  id: obj.id,
+  			  title: obj.title,
+	          channel_title: obj.channel_title,
+      		}
+      	}else {
+      		this.song = {
+      	      id: '',
+      		  title: '',
+	          channel_title: '',
+      		}
+      	}
+      },
+      pushSong() {
+        var self = this;
+        self.loading2 = true;
+        if(self.song.title && self.song.channel_title) {
+	        let data_ = {
+	        	id: self.song.id,
+	            channel_title: self.song.channel_title,
+                title: self.song.title,
+	        }
+	        http.post('/api/mfm_track/edit',data_).then(function(res){
+		      	self.loading2 = false;
+	        	if(res.success) {
+	        		self.handleCurrentChange(self.currentPage);
+			        self.visible2 = false
+		      		self.$message({
+			          message: '😄 你很快就可以看到你编辑的这个歌了！！',
+			          type: 'success'
+			        });
+	        	}else {
+	        		self.$message.error('服务器或者网络错误'+ res);
+	        	}
+	      	}).catch(err => {
+	      		self.loading2 = false;
+	      		self.$message.error('服务器或者网络错误'+ res);
+	      	})
+        }else {
+        	self.$message({
+	          message: '😡 那么大的空看不到吗？？',
+	          type: 'warning'
+	        });
+        }
+      },
+      handleCurrentChange(val) {
+        var self = this;
+        if(!val) {
+          self.currentPage = 1;
+        }else{
+          self.currentPage = val;
+        }
+        console.log(self.Stitle)
+        http.get('/api/mfm_track/list',{
+          params: {
+            pageNum: 10,
+            page: self.currentPage,
+            title: self.Stitle,
+            status: self.Sstatus,
+          }
+        }).then(function(res){
+          console.log(res)
+            self.songList = res.rows;
+          self.total = res.count;
+        }).catch(err => {
+          self.$message.error('服务器或者网络错误'+ res);
+        })
+      },
 		},
 		created: function(){
 			var self = this;
