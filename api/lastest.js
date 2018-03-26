@@ -20,7 +20,7 @@ router.get('/api/latest/list', function(request, response) {
     var pageNum = request.query.pageNum || 10;
     var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
     var status = request.query.status || '';
-    var sql = `SELECT r.id, r.track_id, t.channel_title, t.original_id, t.artwork_url, t.title, t.status , t.played
+    var sql = `SELECT r.id, r.track_id, t.channel_title, t.original_id, t.artwork_url, t.title, t.status , t.played, t.duration_in_seconds
     FROM latest AS r
     LEFT JOIN mfm_track AS t ON r.track_id = t.id
     WHERE t.title LIKE ${title}

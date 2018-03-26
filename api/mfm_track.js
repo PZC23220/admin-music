@@ -24,7 +24,7 @@ router.get('/api/mfm_track/list', function(req, res, next){
         row: true,
         where: obj,
         order: [['id', 'DESC']],
-        attributes: ['id', 'title', 'channel_title', 'original_id', 'playlist_id', 'artwork_url', 'artwork_big_url', 'duration', 'played', 'play_error', 'status', ['UNIX_TIMESTAMP(create_time)*1000', 'create_time']]
+        attributes: ['id', 'title', 'channel_title', 'original_id', 'playlist_id', 'artwork_url', 'artwork_big_url', 'duration_in_seconds', 'played', 'play_error', 'status', ['UNIX_TIMESTAMP(create_time)*1000', 'create_time']]
     }).then(function(result){
         res.send(result);
     }).catch(function(err){
