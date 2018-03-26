@@ -267,6 +267,7 @@
 				http.get('/api/latest/list',{
 					params: {
 						pageNum: 10,
+						page: self.currentPage,
 						title: self.Stitle,
             status: self.Sstatus,
 					}
