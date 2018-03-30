@@ -70,11 +70,10 @@
           label="歌曲数">
         </el-table-column>
 	    <el-table-column
-	      prop="TAG"
 	      label="标签">
 	      <template slot-scope="scope">
-		    		<span v-if="scope.row.TAG == 'Hot'">热门歌单</span>
-		    		<span v-if="scope.row.TAG == 'HotSinger'">人气歌手</span>
+		    		<span v-if="scope.row.tag == 'Hot'">热门歌单</span>
+		    		<span v-if="scope.row.tag == 'HotSinger'">人气歌手</span>
 		    	</template>
 	    </el-table-column>
 	    <el-table-column
@@ -339,7 +338,7 @@
       			title: obj.title,
 	          description: obj.description,
 	          img: obj.img,
-	          TAG: obj.TAG,
+	          TAG: obj.tag,
 	          original_name: obj.original_name,
 	          link: 'https://www.youtube.com/playlist?list=' + obj.original_id,
 	          status: obj.status

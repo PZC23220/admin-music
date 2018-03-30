@@ -6,7 +6,7 @@ var select = require('./connection.js');
 //获取歌单总数
 router.get('/api/playlist/count', function(request, response) {
     var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
-    var TAG = request.query.TAG || '';
+    var TAG = request.query.TAG ? "'"+ request.query.TAG +"'" : '';
     var status = request.query.status || '';
     var nums = request.query.nums || '';
     var sql = `SELECT count(*) AS count, IFNULL(p1.nums, 0) AS nums
@@ -28,7 +28,7 @@ router.get('/api/playlist/list', function(request, response) {
     var page = request.query.page || 1;
     var pageNum = request.query.pageNum || 10;
     var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
-    var TAG = request.query.TAG || '';
+    var TAG = request.query.TAG ? "'"+ request.query.TAG +"'" : '';
     var status = request.query.status || '';
     var nums = request.query.nums || '';
     var sql = `SELECT
