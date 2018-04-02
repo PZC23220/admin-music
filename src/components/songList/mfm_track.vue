@@ -23,9 +23,9 @@
       <el-form-item label="时长筛选">
         <el-select v-model="Snums" clearable placeholder="时长筛选">
           <el-option
-            key="480"
-            label="≥8分钟"
-            value="480">
+            key="3600"
+            label="≥60分钟"
+            value="3600">
           </el-option>
         </el-select>
       </el-form-item>
