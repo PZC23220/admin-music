@@ -9,6 +9,14 @@ router.get('/api/playlist/count', function(request, response) {
     var TAG = request.query.TAG ? "'"+ request.query.TAG +"'" : '';
     var status = request.query.status || '';
     var nums = request.query.nums || '';
+    var numsSql;
+    if(nums == 0) {
+        numsSql = 'and nums is NULL';
+    }else if (nums == '<10') {
+        numsSql = 'and nums < 10';
+    }else {
+        numsSql = '';
+    }
     var sql = `SELECT count(*) AS count, IFNULL(p1.nums, 0) AS nums
     FROM playlist AS p LEFT JOIN
     (SELECT
@@ -19,7 +27,7 @@ router.get('/api/playlist/count', function(request, response) {
         ON p.id = p1.playlist_id
     WHERE title LIKE ${title}
     ${TAG? ' and TAG = ' + TAG : ''}
-    ${nums? 'and nums is NULL' : ''}
+    ${numsSql}
     ${status? ' and status = ' + status : ''}`;
     select(sql, request, response);
 });
@@ -31,6 +39,14 @@ router.get('/api/playlist/list', function(request, response) {
     var TAG = request.query.TAG ? "'"+ request.query.TAG +"'" : '';
     var status = request.query.status || '';
     var nums = request.query.nums || '';
+    var numsSql;
+    if(nums == 0) {
+        numsSql = 'and nums is NULL';
+    }else if (nums == '<10') {
+        numsSql = 'and nums < 10';
+    }else {
+        numsSql = '';
+    }
     var sql = `SELECT
       p.*,
       IFNULL(p1.nums, 0) AS nums
@@ -44,7 +60,7 @@ router.get('/api/playlist/list', function(request, response) {
     WHERE p.title LIKE ${title}
     ${TAG? ' and p.TAG = ' + TAG : ''}
     ${status? ' and p.status = ' + status : ''}
-    ${nums? 'and nums is NULL' : ''}
+    ${numsSql}
     ORDER BY p.id DESC LIMIT ${((pageNum * page) - pageNum)} , ${pageNum}`;
     select(sql, request, response);
 });

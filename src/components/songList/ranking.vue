@@ -3,24 +3,33 @@
 		<p class="pages_tab">当前页：歌单管理<i class="el-icon-arrow-right"></i>榜单</p>
 		<!-- 筛选区域 -->
 		<el-form label-width="80px" :inline="true">
-				<el-form-item label="歌单状态">
-					<el-select v-model="Sstatus" clearable placeholder="歌单状态筛选">
-						<el-option
-							key="1"
-							label="已上线"
-							value="1">
-						</el-option>
-						<el-option
-							key="0"
-							label="已下线"
-							value="0">
-						</el-option>
-					</el-select>
-				</el-form-item>
-		<el-form-item label="歌曲名称">
-			<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
-		</el-form-item>
-		<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
+			<el-form-item label="歌单状态">
+				<el-select v-model="Sstatus" clearable placeholder="歌单状态筛选">
+					<el-option
+						key="1"
+						label="已上线"
+						value="1">
+					</el-option>
+					<el-option
+						key="0"
+						label="已下线"
+						value="0">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label="歌曲名称">
+				<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
+			</el-form-item>
+			<el-form-item label="时长筛选">
+				<el-select v-model="Snums" clearable placeholder="时长筛选">
+					<el-option
+						key="480"
+						label="≥8分钟"
+						value="480">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
 		</el-form>
 		<el-table
 			align="center"
@@ -150,6 +159,7 @@
 				Stag: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
 				Status: 1,
+				Snums: '',
 				idolType: 'idol',
 				song: {
 					id: '',
@@ -161,132 +171,134 @@
 		methods: {
 			formatTime(value) {
 				if(value) {
-	        var secondTime = parseInt(value);
-	        var minuteTime = 0;
-	        var hourTime = 0;
-	        if(secondTime > 60) {
-	          minuteTime = parseInt(secondTime / 60);
-	          secondTime = parseInt(secondTime % 60);
-	          if(minuteTime > 60) {
-	            hourTime = parseInt(minuteTime / 60);
-	            minuteTime = parseInt(minuteTime % 60);
-	          }
-	        }
-	        var result = "" + parseInt(secondTime);
-	        if(minuteTime > 0) {
-	          result = "" + parseInt(minuteTime) + ":" + result;
-	        }
-	        if(hourTime > 0) {
-	          result = "" + parseInt(hourTime) + ":" + result;
-	        }
-	        return result;
+					var secondTime = parseInt(value);
+					var minuteTime = 0;
+					var hourTime = 0;
+					if(secondTime > 60) {
+						minuteTime = parseInt(secondTime / 60);
+						secondTime = parseInt(secondTime % 60);
+						if(minuteTime > 60) {
+							hourTime = parseInt(minuteTime / 60);
+							minuteTime = parseInt(minuteTime % 60);
+						}
+					}
+					var result = "" + parseInt(secondTime);
+					if(minuteTime > 0) {
+						result = "" + parseInt(minuteTime) + ":" + result;
+					}else {
+						result = "00:" + result;
+					}
+					if(hourTime > 0) {
+						result = "" + parseInt(hourTime) + ":" + result;
+					}
+					return result;
 				}else {
-					return '';
+					return '0';
 				}
-  		},
+			},
 			handleImg(res, file) {
-					this.song.img = res.url;
+				this.song.img = res.url;
 			},
 			tableRowClassName({row, index}) {
-					if(row.status == '0') {
-						return 'del-row';
-					}
-						return '';
+				if(row.status == '0') {
+					return 'del-row';
+				}
+					return '';
 			},
 			showBigImg(val) {
 				this.dialogImg = val;
 				this.dialogVisible = true;
 			},
 			editStatus(val,id) {
-        this.addVisible = true;
-        this.Status = val;
-        this.id = id;
-        if(val == 1) {
-        	this.title = `你确定要上线ID为${id}这个歌吗？？`
-        }else {
-        	this.title = `你确定要下线ID为${id}这个歌吗？？`
-        }
-      },
-      pushStatus() {
-        var self = this;
-        self.loading2 = true;
-        http.get('/api/mfm_track/edit_status',{
-        	params: {
-        		id: self.id,
-        		status: self.Status
-        	}
-        }).then(function(res){
-	      	self.loading2 = false;
-        	if(res.success) {
-        		self.handleCurrentChange(self.currentPage);
-		        self.addVisible = false
-		      	if(self.Status == 0) {
-		      		self.$message({
-			          message: '😭，你再也不会在app里面看到这个歌了！',
-			          type: 'success'
-			        });
-		      	}else {
-			      	self.$message({
-			          message: '😃，你很快就可以在app里面看到这个歌了！',
-			          type: 'success'
-			        });
-		      	}
-        	}else {
-        		self.$message.error('服务器或者网络错误'+ res);
-        	}
-      	}).catch(err => {
-      		self.loading2 = false;
-      		self.$message.error('服务器或者网络错误'+ res);
-      	})
-      },
-      editSong(obj) {
-      	this.visible2 = true;
-      	if(obj) {
-      		this.song = {
-	  			  id: obj.track_id,
-	  			  title: obj.title,
-	          channel_title: obj.channel_title,
-      		}
-      	}else {
-      		this.song = {
-      	     id: '',
-      		  title: '',
-	          channel_title: '',
-      		}
-      	}
-      },
-      pushSong() {
-        var self = this;
-        self.loading2 = true;
-        if(self.song.title && self.song.channel_title) {
-	        let data_ = {
-	        	id: self.song.id,
-            channel_title: self.song.channel_title,
-            title: self.song.title,
-	        }
-	        http.post('/api/mfm_track/edit',data_).then(function(res){
-		      	self.loading2 = false;
-	        	if(res.success) {
-	        		self.handleCurrentChange(self.currentPage);
-			        self.visible2 = false
-		      		self.$message({
-			          message: '😄 你很快就可以看到你编辑的这个歌了！！',
-			          type: 'success'
-			        });
-	        	}else {
-	        		self.$message.error('服务器或者网络错误'+ res);
-	        	}
-	      	}).catch(err => {
-	      		self.loading2 = false;
-	      		self.$message.error('服务器或者网络错误'+ res);
-	      	})
-        }else {
-        	self.$message({
-	          message: '😡 那么大的空看不到吗？？',
-	          type: 'warning'
-	        });
-        }
-      },
+				this.addVisible = true;
+				this.Status = val;
+				this.id = id;
+				if(val == 1) {
+					this.title = `你确定要上线ID为${id}这个歌吗？？`
+				}else {
+					this.title = `你确定要下线ID为${id}这个歌吗？？`
+				}
+			},
+			pushStatus() {
+				var self = this;
+				self.loading2 = true;
+				http.get('/api/mfm_track/edit_status',{
+					params: {
+						id: self.id,
+						status: self.Status
+					}
+				}).then(function(res){
+					self.loading2 = false;
+					if(res.success) {
+						self.handleCurrentChange(self.currentPage);
+						self.addVisible = false
+						if(self.Status == 0) {
+							self.$message({
+								message: '😭，你再也不会在app里面看到这个歌了！',
+								type: 'success'
+							});
+						}else {
+							self.$message({
+								message: '😃，你很快就可以在app里面看到这个歌了！',
+								type: 'success'
+							});
+						}
+					}else {
+						self.$message.error('服务器或者网络错误'+ res);
+					}
+				}).catch(err => {
+					self.loading2 = false;
+					self.$message.error('服务器或者网络错误'+ res);
+				})
+			},
+			editSong(obj) {
+				this.visible2 = true;
+				if(obj) {
+					this.song = {
+						id: obj.track_id,
+						title: obj.title,
+						channel_title: obj.channel_title,
+					}
+				}else {
+					this.song = {
+						 id: '',
+						title: '',
+						channel_title: '',
+					}
+				}
+			},
+			pushSong() {
+				var self = this;
+				self.loading2 = true;
+				if(self.song.title && self.song.channel_title) {
+						let data_ = {
+							id: self.song.id,
+						channel_title: self.song.channel_title,
+						title: self.song.title,
+						}
+						http.post('/api/mfm_track/edit',data_).then(function(res){
+								self.loading2 = false;
+							if(res.success) {
+								self.handleCurrentChange(self.currentPage);
+									self.visible2 = false
+									self.$message({
+										message: '😄 你很快就可以看到你编辑的这个歌了！！',
+										type: 'success'
+									});
+							}else {
+								self.$message.error('服务器或者网络错误'+ res);
+							}
+						}).catch(err => {
+							self.loading2 = false;
+							self.$message.error('服务器或者网络错误'+ res);
+						})
+				}else {
+					self.$message({
+							message: '😡 那么大的空看不到吗？？',
+							type: 'warning'
+						});
+				}
+			},
 			handleCurrentChange(val) {
 				var self = this;
 				if(!val) {
@@ -300,7 +312,8 @@
 						pageNum: 10,
 						page: self.currentPage,
 						title: self.Stitle,
-            status: self.Sstatus,
+						status: self.Sstatus,
+						nums: self.Snums,
 					}
 				}).then(function(res){
 					console.log(res)
@@ -310,7 +323,9 @@
 				})
 				http.get('/api/ranking/count',{
 						params: {
-								nums: self.Snums
+							title: self.Stitle,
+							status: self.Sstatus,
+							nums: self.Snums,
 						}
 				}).then(function(res){
 						console.log(res)

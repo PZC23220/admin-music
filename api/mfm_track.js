@@ -7,15 +7,31 @@ router.get('/api/mfm_track/list', function(req, res, next){
     var pageNum = req.query.pageNum || 10;
     var status = req.query.status || '';
     var title = req.query.title || '';
+    var nums = req.query.nums || '';
     var obj;
-    if(status) {
+    if(status && nums) {
         obj = {
             title: { $like: '%'+title+'%'},
+            duration_in_seconds: { $gte: nums},
             status: status
         }
+
+    }else if (status || nums) {
+        if(status) {
+            obj = {
+                title: { $like: '%'+title+'%'},
+                status: status
+            }
+        }else {
+            obj = {
+                title: { $like: '%'+title+'%'},
+                duration_in_seconds: { $gte: nums}
+            }
+        }
+
     }else {
         obj = {
-            title: { $like: '%'+title+'%'},
+            title: { $like: '%'+title+'%'}
         }
     }
     models.mfm_track.findAndCountAll({

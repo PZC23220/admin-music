@@ -3,24 +3,33 @@
 		<p class="pages_tab">当前页：歌单管理<i class="el-icon-arrow-right"></i>榜单</p>
 		<!-- 筛选区域 -->
 		<el-form label-width="80px" :inline="true">
-				<el-form-item label="歌单状态">
-					<el-select v-model="Sstatus" clearable placeholder="歌单状态筛选">
-						<el-option
-							key="1"
-							label="已上线"
-							value="1">
-						</el-option>
-						<el-option
-							key="0"
-							label="已下线"
-							value="0">
-						</el-option>
-					</el-select>
-				</el-form-item>
-		<el-form-item label="歌曲名称">
-			<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
-		</el-form-item>
-		<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
+			<el-form-item label="歌单状态">
+				<el-select v-model="Sstatus" clearable placeholder="歌单状态筛选">
+					<el-option
+						key="1"
+						label="已上线"
+						value="1">
+					</el-option>
+					<el-option
+						key="0"
+						label="已下线"
+						value="0">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label="歌曲名称">
+				<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
+			</el-form-item>
+			<el-form-item label="时长筛选">
+				<el-select v-model="Snums" clearable placeholder="时长筛选">
+					<el-option
+						key="480"
+						label="≥8分钟"
+						value="480">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
 		</el-form>
 		<el-table
 			align="center"
@@ -148,6 +157,7 @@
 				Sstatus: '',
 				title: '',
 				Stag: '',
+				Snums: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
 				Status: 1,
 				idolType: 'idol',
@@ -161,29 +171,31 @@
 		methods: {
 			formatTime(value) {
 				if(value) {
-	        var secondTime = parseInt(value);
-	        var minuteTime = 0;
-	        var hourTime = 0;
-	        if(secondTime > 60) {
-	          minuteTime = parseInt(secondTime / 60);
-	          secondTime = parseInt(secondTime % 60);
-	          if(minuteTime > 60) {
-	            hourTime = parseInt(minuteTime / 60);
-	            minuteTime = parseInt(minuteTime % 60);
-	          }
-	        }
-	        var result = "" + parseInt(secondTime);
-	        if(minuteTime > 0) {
-	          result = "" + parseInt(minuteTime) + ":" + result;
-	        }
-	        if(hourTime > 0) {
-	          result = "" + parseInt(hourTime) + ":" + result;
-	        }
-	        return result;
+					var secondTime = parseInt(value);
+					var minuteTime = 0;
+					var hourTime = 0;
+					if(secondTime > 60) {
+						minuteTime = parseInt(secondTime / 60);
+						secondTime = parseInt(secondTime % 60);
+						if(minuteTime > 60) {
+							hourTime = parseInt(minuteTime / 60);
+							minuteTime = parseInt(minuteTime % 60);
+						}
+					}
+					var result = "" + parseInt(secondTime);
+					if(minuteTime > 0) {
+						result = "" + parseInt(minuteTime) + ":" + result;
+					}else {
+						result = "00:" + result;
+					}
+					if(hourTime > 0) {
+						result = "" + parseInt(hourTime) + ":" + result;
+					}
+					return result;
 				}else {
-					return '';
+					return '0';
 				}
-  		},
+			},
 			handleImg(res, file) {
 					this.song.img = res.url;
 			},
@@ -301,6 +313,7 @@
 						page: self.currentPage,
 						title: self.Stitle,
             status: self.Sstatus,
+            nums: self.Snums
 					}
 				}).then(function(res){
 					console.log(res)
@@ -309,9 +322,11 @@
 					self.$message.error('服务器或者网络错误'+ res);
 				})
 				http.get('/api/latest/count',{
-						params: {
-								nums: self.Snums
-						}
+					params: {
+						title: self.Stitle,
+            status: self.Sstatus,
+						nums: self.Snums
+					}
 				}).then(function(res){
 						console.log(res)
 						self.total = res[0].count;

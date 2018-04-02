@@ -35,11 +35,16 @@
 			<el-input placeholder="歌单名称" v-model="Stitle"></el-input>
 		</el-form-item>
         <el-form-item label="歌曲数目">
-          <el-select v-model="Snums" clearable placeholder="歌单状态筛选">
+          <el-select v-model="Snums" clearable placeholder="歌曲数目">
             <el-option
               key="0"
               label="0"
               value="0">
+            </el-option>
+            <el-option
+              key="<10"
+              label="<10"
+              value="<10">
             </el-option>
           </el-select>
         </el-form-item>
@@ -288,18 +293,17 @@
       },
       handleCurrentChange(val) {
       	var self = this;
-      	const loading = self.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
+      	// const loading = self.$loading({
+       //    lock: true,
+       //    text: 'Loading',
+       //    spinner: 'el-icon-loading',
+       //    background: 'rgba(0, 0, 0, 0.7)'
+       //  });
       	if(!val) {
       		self.currentPage = 1;
       	}else{
       		self.currentPage = val;
       	}
-      	console.log(self.Stitle)
       	http.get('/api/playlist/list',{
       		params: {
             pageNum: 10,
@@ -312,7 +316,7 @@
       	}).then(function(res){
       		console.log(res)
         	self.songList = res;
-	        loading.close();
+	        // loading.close();
       	}).catch(err => {
       		self.$message.error('服务器或者网络错误'+ res);
       	})

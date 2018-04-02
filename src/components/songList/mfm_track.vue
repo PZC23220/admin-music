@@ -3,24 +3,33 @@
 		<p class="pages_tab">当前页：歌单管理<i class="el-icon-arrow-right"></i>全部歌曲</p>
 		<!-- 筛选区域 -->
     <el-form label-width="80px" :inline="true">
-        <el-form-item label="歌曲状态">
-          <el-select v-model="Sstatus" clearable placeholder="歌曲状态筛选">
-            <el-option
-              key="1"
-              label="已上线"
-              value="1">
-            </el-option>
-            <el-option
-              key="0"
-              label="已下线"
-              value="0">
-            </el-option>
-          </el-select>
-        </el-form-item>
-		<el-form-item label="歌曲名称">
-			<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
-		</el-form-item>
-		<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
+      <el-form-item label="歌曲状态">
+        <el-select v-model="Sstatus" clearable placeholder="歌曲状态筛选">
+          <el-option
+            key="1"
+            label="已上线"
+            value="1">
+          </el-option>
+          <el-option
+            key="0"
+            label="已下线"
+            value="0">
+          </el-option>
+        </el-select>
+      </el-form-item>
+  		<el-form-item label="歌曲名称">
+  			<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
+  		</el-form-item>
+      <el-form-item label="时长筛选">
+        <el-select v-model="Snums" clearable placeholder="时长筛选">
+          <el-option
+            key="480"
+            label="≥8分钟"
+            value="480">
+          </el-option>
+        </el-select>
+      </el-form-item>
+  		<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
     </el-form>
 		<el-table
 			align="center"
@@ -140,9 +149,9 @@
 				id:'',
 				total: 0,
 				idolname: '',
-                Snums: '',
+        Snums: '',
 				Stitle: '',
-                Sstatus: '',
+        Sstatus: '',
 				title: '',
 				Stag: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
@@ -172,13 +181,15 @@
           var result = "" + parseInt(secondTime);
           if(minuteTime > 0) {
             result = "" + parseInt(minuteTime) + ":" + result;
+          }else {
+            result = "00:" + result;
           }
           if(hourTime > 0) {
             result = "" + parseInt(hourTime) + ":" + result;
           }
           return result;
         }else {
-          return '';
+          return '0';
         }
       },
 			handleImg(res, file) {
@@ -298,6 +309,7 @@
             page: self.currentPage,
             title: self.Stitle,
             status: self.Sstatus,
+            nums: self.Snums
           }
         }).then(function(res){
           console.log(res)
