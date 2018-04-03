@@ -21,14 +21,19 @@
 				<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
 			</el-form-item>
 			<el-form-item label="时长筛选">
-        <el-select v-model="Snums" clearable placeholder="时长筛选">
-          <el-option
-            key="3600"
-            label="≥60分钟"
-            value="3600">
-          </el-option>
-        </el-select>
-      </el-form-item>
+		<el-select v-model="Snums" clearable placeholder="时长筛选">
+			<el-option
+			key="900"
+			label="≥15分钟"
+			value="900">
+		  </el-option>
+		  <el-option
+			key="3600"
+			label="≥60分钟"
+			value="3600">
+		  </el-option>
+		</el-select>
+	  </el-form-item>
 			<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
 		</el-form>
 		<el-table
