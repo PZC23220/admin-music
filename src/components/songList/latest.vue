@@ -34,6 +34,25 @@
 				  </el-option>
 				</el-select>
       </el-form-item>
+      <el-form-item label="地区筛选">
+        <el-select v-model="Stype" clearable placeholder="地区筛选">
+					<el-option
+					key="Europe"
+					label="Europe"
+					value="Europe">
+				  </el-option>
+				  <el-option
+					key="Japan"
+					label="Japan"
+					value="Japan">
+				  </el-option>
+				  <el-option
+					key="Korea"
+					label="Korea"
+					value="Korea">
+				  </el-option>
+				</el-select>
+      </el-form-item>
 			<el-button type="success" icon="el-icon-search" @click="handleCurrentChange()">搜索</el-button>
 		</el-form>
 		<el-table
@@ -67,7 +86,12 @@
 				<el-table-column
 					prop="played"
 					label="播放数">
-				</el-table-column>
+			</el-table-column>
+			</el-table-column>
+				<el-table-column
+					prop="type"
+					label="地区">
+			</el-table-column>
 			<el-table-column
 				prop="artwork_url"
 				width="120px"
@@ -161,6 +185,7 @@
 				Stitle: '',
 				Sstatus: '',
 				title: '',
+				Stype: '',
 				Stag: '',
 				Snums: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
@@ -318,7 +343,8 @@
 						page: self.currentPage,
 						title: self.Stitle,
             status: self.Sstatus,
-            nums: self.Snums
+            nums: self.Snums,
+            type: self.Stype
 					}
 				}).then(function(res){
 					console.log(res)
@@ -330,7 +356,8 @@
 					params: {
 						title: self.Stitle,
             status: self.Sstatus,
-						nums: self.Snums
+						nums: self.Snums,
+						type: self.Stype
 					}
 				}).then(function(res){
 						console.log(res)
