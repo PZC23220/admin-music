@@ -30,7 +30,7 @@
     margin-bottom: 10px;
   }
   .login_input {
-    
+
     margin-bottom: 20px;
   }
   .login_input button {
@@ -60,7 +60,7 @@
     methods: {
       login() {
         var self = this;
-        if((self.user == 'music') && (self.pw == 'musicFM')) {
+        if((self.user == 'musicz2018') && (self.pw == 'musicz@groupY')) {
           var hrefs = 'http://' + location.host + '/#/allList';
           window.open(hrefs, '_self');
           sessionStorage.setItem('username', 'music');
