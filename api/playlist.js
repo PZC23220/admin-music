@@ -40,9 +40,9 @@ router.get('/api/playlist/list', function(request, response) {
     var status = request.query.status || '';
     var nums = request.query.nums || '';
     var numsSql;
-    if(nums == 0) {
+    if(nums === '0') {
         numsSql = 'and nums is NULL';
-    }else if (nums == '<10') {
+    }else if (nums === '<10') {
         numsSql = 'and nums < 10';
     }else {
         numsSql = '';
