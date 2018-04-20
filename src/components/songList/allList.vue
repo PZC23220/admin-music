@@ -137,27 +137,30 @@
         <el-dialog
           :title="'编辑歌单'"
           :visible.sync="visible2">
-          <el-form :rules="rules"label-width="80px">
+          <el-form label-width="80px">
 	          <el-form-item label="歌单ID">
 					    <el-input :disabled="true" v-model="song.id"></el-input>
 					  </el-form-item>
-					  <el-form-item label="歌单名称" prop="title">
+					  <el-form-item label="歌单名称">
+              <em>*</em>
 					    <el-input v-model="song.title"></el-input>
 					  </el-form-item>
-					  <el-form-item label="歌单链接" prop="link">
+					  <el-form-item label="歌单链接">
+              <em>*</em>
 					    <el-input v-model="song.link"></el-input>
 					  </el-form-item>
 					  <el-form-item label="歌单描述">
 					    <el-input v-model="song.description"></el-input>
 					  </el-form-item>
 					  <el-form-item label="歌单标签">
-              <el-radio-group v-model="song.TAG">
+              <el-radio-group v-model="song.tag">
                 <el-radio :label="'HotSinger'">人气歌手</el-radio>
                 <el-radio :label="'Hot'">热门歌单</el-radio>
                 <el-radio :label="''">其他</el-radio>
               </el-radio-group>
             </el-form-item>
-					  <el-form-item label="封面图上传" prop="img">
+					  <el-form-item label="封面图上传">
+              <em>*</em>
 					  	<el-upload class="avatar-uploader" :action="hosts" :show-file-list="false" :on-success="handleImg">
 	            <img v-if="song.img" :src="song.img" class="avatar">
 	            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -188,6 +191,11 @@
         </el-dialog>
 	</div>
 </template>
+<style type="text/css" scoped>
+  em {
+    color: #f00;
+  }
+</style>
 <script type="text/javascript">
 	import http from '../../utils/http.js';
 	require('../../utils/common.js');
@@ -204,9 +212,9 @@
 				id:'',
 				total: 0,
 				idolname: '',
-                Snums: '',
+        Snums: '',
 				Stitle: '',
-                Sstatus: '',
+        Sstatus: '',
 				title: '',
 				Stag: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
@@ -217,7 +225,7 @@
           title: '',
           description: '',
           img: '',
-          TAG: '',
+          tag: '',
           original_name: '',
           link: '',
           status: 1
@@ -308,10 +316,10 @@
       		params: {
             pageNum: 10,
       			page: self.currentPage,
-      			TAG: self.Stag,
+      			tag: self.Stag,
       			title: self.Stitle,
-                status: self.Sstatus,
-                nums: self.Snums
+            status: self.Sstatus,
+            nums: self.Snums
       		}
       	}).then(function(res){
       		console.log(res)
@@ -342,7 +350,7 @@
       			title: obj.title,
 	          description: obj.description,
 	          img: obj.img,
-	          TAG: obj.tag,
+	          tag: obj.tag,
 	          original_name: obj.original_name,
 	          link: 'https://www.youtube.com/playlist?list=' + obj.original_id,
 	          status: obj.status
@@ -353,7 +361,7 @@
       			title: '',
 	          description: '',
 	          img: '',
-	          TAG: '',
+	          tag: '',
 	          original_name: '',
 	          link: '',
 	          status: 1
@@ -369,7 +377,7 @@
 	        	title: self.song.title,
 	          description: self.song.description,
 	          img: self.song.img,
-	          TAG: self.song.TAG,
+	          tag: self.song.tag,
 	          original_name: self.song.original_name,
 	          original_id: self.song.link.match(/.*list=(.*)&?.*/)[1],
 	          status: self.song.status
@@ -395,6 +403,7 @@
 	          message: '😡 那么大的空看不到吗？？',
 	          type: 'warning'
 	        });
+          self.loading2 = false;
         }
       },
 		},
