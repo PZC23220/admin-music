@@ -6,7 +6,7 @@ var select = require('./connection.js');
 //获取歌单总数
 router.get('/api/playlist/count', function(request, response) {
     var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
-    var TAG = request.query.TAG ? "'"+ request.query.TAG +"'" : '';
+    var tag = request.query.tag ? "'"+ request.query.tag +"'" : '';
     var status = request.query.status || '';
     var nums = request.query.nums || '';
     var numsSql;
@@ -26,7 +26,7 @@ router.get('/api/playlist/count', function(request, response) {
        GROUP BY t.playlist_id) AS p1
         ON p.id = p1.playlist_id
     WHERE title LIKE ${title}
-    ${TAG? ' and TAG = ' + TAG : ''}
+    ${tag? ' and tag = ' + tag : ''}
     ${numsSql}
     ${status? ' and status = ' + status : ''}`;
     select(sql, request, response);
@@ -36,7 +36,7 @@ router.get('/api/playlist/list', function(request, response) {
     var page = request.query.page || 1;
     var pageNum = request.query.pageNum || 10;
     var title = request.query.title ? "'%"+ request.query.title +"%'" : "'%%'";
-    var TAG = request.query.TAG ? "'"+ request.query.TAG +"'" : '';
+    var tag = request.query.tag ? "'"+ request.query.tag +"'" : '';
     var status = request.query.status || '';
     var nums = request.query.nums || '';
     var numsSql;
@@ -58,7 +58,7 @@ router.get('/api/playlist/list', function(request, response) {
        GROUP BY t.playlist_id) AS p1
         ON p.id = p1.playlist_id
     WHERE p.title LIKE ${title}
-    ${TAG? ' and p.TAG = ' + TAG : ''}
+    ${tag? ' and p.tag = ' + tag : ''}
     ${status? ' and p.status = ' + status : ''}
     ${numsSql}
     ORDER BY p.id DESC LIMIT ${((pageNum * page) - pageNum)} , ${pageNum}`;
