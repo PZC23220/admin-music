@@ -51,15 +51,7 @@ a {
 .el-table .positive-row {
   background: #e2f0e4;
 }
-.el-table .del-row {
-    background:#E5E9F2;
-  }
-.el-table .del-row-me {
-    background: #f3dada;
-  }
-.el-table .del-row-wrong {
-    background: #f1efef;
-  }
+
 .el-pagination {
   margin-top: 20px;
 }
@@ -194,3 +186,12 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
+.el-table .del-row {
+    background:#E5E9F2;
+  }
+.el-table .del-row-me {
+    background: #f3dada;
+  }
+.el-table .del-row-wrong {
+    background: #f1efef;
+  }

@@ -8,6 +8,7 @@ router.get('/api/mfm_track/list', function(req, res, next){
     var status = req.query.status || '';
     var title = req.query.title || '';
     var nums = req.query.nums || '';
+    var desc =  req.query.desc ? req.query.desc : 'id';
     var obj;
     if(status && nums) {
         obj = {
@@ -39,7 +40,7 @@ router.get('/api/mfm_track/list', function(req, res, next){
         offset: (pageNum * page) - pageNum,
         row: true,
         where: obj,
-        order: [['id', 'DESC']],
+        order: [[desc, 'DESC']],
         attributes: ['id', 'title', 'channel_title', 'original_id', 'playlist_id', 'artwork_url', 'artwork_big_url', 'duration_in_seconds', 'played', 'play_error', 'status', ['UNIX_TIMESTAMP(create_time)*1000', 'create_time']]
     }).then(function(result){
         res.send(result);

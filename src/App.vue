@@ -14,6 +14,7 @@
               <el-menu-item index="/recommend">每日推荐</el-menu-item>
               <el-menu-item index="/latest">最新歌曲</el-menu-item>
               <el-menu-item index="/mfm_track">全部歌曲</el-menu-item>
+              <el-menu-item index="/search_keywords">搜索热词</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>

@@ -7,6 +7,7 @@ import latest from '@/components/songList/latest'
 import ranking from '@/components/songList/ranking'
 import allList from '@/components/songList/allList'
 import mfm_track from '@/components/songList/mfm_track'
+import search_keywords from '@/components/songList/search_keywords'
 
 
 import login from '@/components/login'
@@ -23,5 +24,6 @@ export default new Router({
     {path: '/ranking', component: ranking},
     {path: '/allList', component: allList},
     {path: '/mfm_track', component: mfm_track},
+    {path: '/search_keywords', component: search_keywords},
   ]
 })

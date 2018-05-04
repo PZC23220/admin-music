@@ -17,6 +17,20 @@
 					</el-option>
 				</el-select>
 			</el-form-item>
+			<el-form-item label="排序方式">
+        <el-select v-model="Sdesc" clearable placeholder="排序方式">
+          <el-option
+            key="id"
+            label="ID"
+            value="id">
+          </el-option>
+          <el-option
+            key="played"
+            label="播放次数"
+            value="played">
+          </el-option>
+        </el-select>
+      </el-form-item>
 			<el-form-item label="歌曲名称">
 				<el-input placeholder="歌曲名称" v-model="Stitle"></el-input>
 			</el-form-item>
@@ -162,6 +176,7 @@
 				Sstatus: '',
 				title: '',
 				Stag: '',
+				Sdesc: '',
 				Snums: '',
 				hosts: 'http://opt.groupy.cn/api/fileupload',
 				Status: 1,
@@ -319,6 +334,7 @@
 						title: self.Stitle,
             status: self.Sstatus,
             nums: self.Snums,
+            desc: self.Sdesc
 					}
 				}).then(function(res){
 					console.log(res)
