@@ -3,20 +3,6 @@
 		<p class="pages_tab">当前页：歌单管理<i class="el-icon-arrow-right"></i>全部歌单</p>
 		<!-- 筛选区域 -->
     <el-form label-width="80px" :inline="true">
-      <el-form-item label="歌单标签">
-  		  <el-select v-model="Stag" clearable placeholder="歌单标签筛选">
-  		    <el-option
-  		      key="Hot"
-  		      label="热门歌单"
-  		      value="Hot">
-  		    </el-option>
-  		    <el-option
-  		      key="HotSinger"
-  		      label="人气歌手"
-  		      value="HotSinger">
-  		    </el-option>
-  		  </el-select>
-  		</el-form-item>
         <el-form-item label="歌单状态">
           <el-select v-model="Sstatus" clearable placeholder="歌单状态筛选">
             <el-option
@@ -74,13 +60,6 @@
           prop="nums"
           label="歌曲数">
         </el-table-column>
-	    <el-table-column
-	      label="标签">
-	      <template slot-scope="scope">
-		    		<span v-if="scope.row.tag == 'Hot'">热门歌单</span>
-		    		<span v-if="scope.row.tag == 'HotSinger'">人气歌手</span>
-		    	</template>
-	    </el-table-column>
 	    <el-table-column
 	      prop="img"
 	      width="120px"
@@ -316,7 +295,7 @@
       		params: {
             pageNum: 10,
       			page: self.currentPage,
-      			tag: self.Stag,
+      			tag: 'HotSinger',
       			title: self.Stitle,
             status: self.Sstatus,
             nums: self.Snums
@@ -330,7 +309,7 @@
       	})
         http.get('/api/playlist/count',{
             params: {
-                TAG: self.Stag,
+                tag: 'HotSinger',
                 title: self.Stitle,
                 status: self.Sstatus,
                 nums: self.Snums

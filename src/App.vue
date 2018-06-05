@@ -10,6 +10,7 @@
             <el-submenu index="songList">
               <template slot="title"><i class="el-icon-menu"></i>歌单管理</template>
               <el-menu-item index="/allList">全部歌单</el-menu-item>
+              <el-menu-item index="/HotSinger">人气歌单</el-menu-item>
               <el-menu-item index="/ranking">排行榜</el-menu-item>
               <el-menu-item index="/recommend">每日推荐</el-menu-item>
               <el-menu-item index="/latest">最新歌曲</el-menu-item>

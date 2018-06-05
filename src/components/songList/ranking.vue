@@ -112,7 +112,7 @@
 			:current-page="currentPage"
 			background
 			@current-change="handleCurrentChange"
-			layout="prev, pager, next"
+			layout="prev, pager, next, jumper"
 			:total="total">
 		</el-pagination>
 				<!-- 查看banner大图 -->

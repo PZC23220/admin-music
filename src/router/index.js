@@ -8,6 +8,7 @@ import ranking from '@/components/songList/ranking'
 import allList from '@/components/songList/allList'
 import mfm_track from '@/components/songList/mfm_track'
 import search_keywords from '@/components/songList/search_keywords'
+import HotSinger from '@/components/songList/HotSinger'
 
 
 import login from '@/components/login'
@@ -25,5 +26,6 @@ export default new Router({
     {path: '/allList', component: allList},
     {path: '/mfm_track', component: mfm_track},
     {path: '/search_keywords', component: search_keywords},
+    {path: '/HotSinger', component: HotSinger},
   ]
 })
