@@ -24,7 +24,7 @@ router.get('/api/recommendation/list', function(request, response) {
     var status = request.query.status || '';
     var nums = request.query.nums || '';
     var desc =  (request.query.desc == 'played') ? 't.played' : 'r.id';
-    var sql = `SELECT r.id, r.track_id, t.channel_title, t.original_id, t.artwork_url, t.title, t.status , t.played, t.duration_in_seconds
+    var sql = `SELECT r.id, r.track_id, t.channel_title, t.original_id, t.artwork_url, t.artwork_big_url, t.title, t.status , t.played, t.duration_in_seconds
     FROM recommendation AS r
     LEFT JOIN mfm_track AS t ON r.track_id = t.id
     WHERE t.title LIKE ${title}

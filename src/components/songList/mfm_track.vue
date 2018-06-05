@@ -139,6 +139,12 @@
 			  <el-form-item label="歌手">
 			    <el-input v-model="song.channel_title"></el-input>
 			  </el-form-item>
+        <el-form-item label="封面图-小">
+          <el-input v-model="song.artwork_url"></el-input>
+        </el-form-item>
+        <el-form-item label="封面图-大">
+          <el-input v-model="song.artwork_big_url"></el-input>
+        </el-form-item>
 		  </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button type="success" @click="visible2 = false" :loading="loading2">取 消</el-button>
@@ -176,6 +182,8 @@
 					id: '',
           title: '',
           channel_title: '',
+          artwork_url: '',
+          artwork_big_url: '',
         },
 			}
 		},
@@ -268,13 +276,17 @@
       		this.song = {
   			  id: obj.id,
   			  title: obj.title,
-	          channel_title: obj.channel_title,
+          channel_title: obj.channel_title,
+          artwork_url: obj.artwork_url,
+          artwork_big_url: obj.artwork_big_url,
       		}
       	}else {
       		this.song = {
       	      id: '',
       		  title: '',
 	          channel_title: '',
+            artwork_url: '',
+          artwork_big_url: '',
       		}
       	}
       },
@@ -284,8 +296,10 @@
         if(self.song.title && self.song.channel_title) {
 	        let data_ = {
 	        	id: self.song.id,
-	            channel_title: self.song.channel_title,
-                title: self.song.title,
+            channel_title: self.song.channel_title,
+            title: self.song.title,
+            artwork_url: self.song.artwork_url,
+            artwork_big_url: self.song.artwork_big_url,
 	        }
 	        http.post('/api/mfm_track/edit',data_).then(function(res){
 		      	self.loading2 = false;

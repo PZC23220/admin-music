@@ -27,7 +27,7 @@ router.get('/api/latest/list', function(request, response) {
     var nums = request.query.nums || '';
     var type = request.query.type ? "'"+ request.query.type +"'" : "";
     var desc =  (request.query.desc == 'played') ? 't.played' : 'r.id';
-    var sql = `SELECT r.*, t.channel_title, t.original_id, t.artwork_url, t.title, t.status , t.played, t.duration_in_seconds
+    var sql = `SELECT r.*, t.channel_title, t.original_id, t.artwork_url, t.artwork_big_url, t.title, t.status , t.played, t.duration_in_seconds
     FROM latest AS r
     LEFT JOIN mfm_track AS t ON r.track_id = t.id
     WHERE t.title LIKE ${title}

@@ -83,11 +83,11 @@
 					label="播放数">
 				</el-table-column>
 			<el-table-column
-				prop="artwork_url"
+				prop="artwork_big_url"
 				width="120px"
 				label="封面图">
 				<template slot-scope="scope">
-					<img :src="scope.row.artwork_url" alt="" @click="showBigImg(scope.row.artwork_url)" class="song_img">
+					<img :src="scope.row.artwork_big_url" alt="" @click="showBigImg(scope.row.artwork_big_url)" class="song_img">
 				</template>
 			</el-table-column>
 			<el-table-column
@@ -185,6 +185,8 @@
 					id: '',
 					title: '',
 					channel_title: '',
+					artwork_url: '',
+      		artwork_big_url: '',
 				},
 			}
 		},
@@ -278,12 +280,16 @@
 	  			  id: obj.track_id,
 	  			  title: obj.title,
 	          channel_title: obj.channel_title,
+	          artwork_url: obj.artwork_url,
+        		artwork_big_url: obj.artwork_big_url,
       		}
       	}else {
       		this.song = {
       	     id: '',
       		  title: '',
 	          channel_title: '',
+	          artwork_url: '',
+        		artwork_big_url: '',
       		}
       	}
       },
@@ -295,6 +301,8 @@
 	        	id: self.song.id,
             channel_title: self.song.channel_title,
             title: self.song.title,
+            artwork_url: self.song.artwork_url,
+        		artwork_big_url: self.song.artwork_big_url,
 	        }
 	        http.post('/api/mfm_track/edit',data_).then(function(res){
 		      	self.loading2 = false;
