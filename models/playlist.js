@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
 		position: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			defaultValue: '0'
+			defaultValue: '999999'
 		},
 		original_id: {
 			type: DataTypes.STRING(64),
@@ -43,6 +43,11 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true
 		},
 		create_time: {
+			type: DataTypes.TIME,
+			allowNull: false,
+			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+		},
+		update_time: {
 			type: DataTypes.TIME,
 			allowNull: false,
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')

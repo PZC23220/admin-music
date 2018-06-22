@@ -1,43 +1,33 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('search_keywords', {
+	return sequelize.define('download_track', {
 		id: {
-			type: DataTypes.INTEGER(11).UNSIGNED,
+			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		app_name: {
+		original_id: {
 			type: DataTypes.STRING(16),
-			allowNull: false,
-			defaultValue: ''
+			allowNull: false
 		},
-		keyword: {
-			type: DataTypes.STRING(128),
-			allowNull: true,
-			unique: true
-		},
-		icon: {
+		file_name: {
 			type: DataTypes.STRING(256),
-			allowNull: true
+			allowNull: false
 		},
-		type: {
-			type: DataTypes.STRING(16),
-			allowNull: true
-		},
-		position: {
-			type: DataTypes.INTEGER(11),
+		file_size: {
+			type: DataTypes.INTEGER(10),
 			allowNull: false,
 			defaultValue: '0'
 		},
-		active: {
-			type: DataTypes.INTEGER(11),
+		source: {
+			type: DataTypes.INTEGER(1).UNSIGNED,
 			allowNull: false,
 			defaultValue: '0'
 		},
-		sum: {
-			type: DataTypes.INTEGER(11).UNSIGNED,
+		status: {
+			type: DataTypes.INTEGER(1).UNSIGNED,
 			allowNull: false,
 			defaultValue: '0'
 		},
@@ -52,6 +42,6 @@ module.exports = function(sequelize, DataTypes) {
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
 		}
 	}, {
-		tableName: 'search_keywords'
+		tableName: 'download_track'
 	});
 };

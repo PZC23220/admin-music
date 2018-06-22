@@ -17,6 +17,10 @@
               <el-menu-item index="/mfm_track">全部歌曲</el-menu-item>
               <el-menu-item index="/search_keywords">搜索热词</el-menu-item>
             </el-submenu>
+             <el-submenu index="publish">
+              <template slot="title"><i class="el-icon-service"></i>发布管理</template>
+              <el-menu-item index="/app_info">包更新管理</el-menu-item>
+            </el-submenu>
           </el-menu>
         </el-aside>
         <el-main>

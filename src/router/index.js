@@ -10,6 +10,9 @@ import mfm_track from '@/components/songList/mfm_track'
 import search_keywords from '@/components/songList/search_keywords'
 import HotSinger from '@/components/songList/HotSinger'
 
+// 发布管理
+import app_info from '@/components/publish/app_info'
+
 
 import login from '@/components/login'
 
@@ -27,5 +30,6 @@ export default new Router({
     {path: '/mfm_track', component: mfm_track},
     {path: '/search_keywords', component: search_keywords},
     {path: '/HotSinger', component: HotSinger},
+    {path: '/app_info', component: app_info},
   ]
 })

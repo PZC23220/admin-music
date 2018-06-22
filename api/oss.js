@@ -14,8 +14,8 @@ var client = new OSS({
 // 提交闪屏
 router.post('/api/fileupload', function(request, response) {
     co(function* () {
-        client.useBucket('photoh5-jp');
-        var result = yield client.put('miscImg/'+request.files[0].originalname, request.files[0].path);
+        client.useBucket('musicfm-jp');
+        var result = yield client.put('optupload/'+request.files[0].originalname, request.files[0].path);
         response.send(result);
         response.end();
     });

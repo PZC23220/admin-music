@@ -60,6 +60,11 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
 		},
+		update_time: {
+			type: DataTypes.TIME,
+			allowNull: false,
+			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+		},
 		status: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,

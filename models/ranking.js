@@ -30,6 +30,15 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.TIME,
 			allowNull: false,
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+		},
+		position: {
+			type: DataTypes.INTEGER(10).UNSIGNED,
+			allowNull: false,
+			defaultValue: '2147483647'
+		},
+		source: {
+			type: DataTypes.STRING(255),
+			allowNull: false
 		}
 	}, {
 		tableName: 'ranking'
