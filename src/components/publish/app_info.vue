@@ -58,7 +58,7 @@
             :action="hosts">
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip"  style="color:#f00" slot="tip">因为安装包有点大，所以上传时间会久一点，大概十几秒。请耐心等待！不要中途放弃！！
+            <div class="el-upload__tip"  style="color:#f00" slot="tip">因为安装包有点大，所以上传时间会久一点。请耐心等待！不要中途放弃！！
             <br><b>⚠️如果重复上传将会替换上一次上传的包</b>
             <br><b>⚠️上传的包后缀是.apk，这个我希望你真的知道！！</b></div>
           </el-upload>
@@ -169,7 +169,7 @@
       }
 		},
 		created: function(){
-      this.hosts = `http://opt.musicfm.top:4000/api/fileupload`;
+      this.hosts = `http://${location.hostname}:4000/api/fileupload`;
 			this.handleCurrentChange();
 		}
 	}
